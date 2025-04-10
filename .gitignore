@@ -1,0 +1,11 @@
+bin/ echo obj/ echo .vs/ echo *.user echo *.suo echo *.exe echo *.dll echo *.pdb echo *.cache
+bin/
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.exe
+*.dll
+*.pdb
+*.cache
