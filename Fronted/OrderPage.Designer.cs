@@ -48,24 +48,24 @@
             // 
             // dtpStart
             // 
-            dtpStart.Location = new Point(46, 170);
+            dtpStart.Location = new Point(81, 115);
             dtpStart.Name = "dtpStart";
-            dtpStart.Size = new Size(79, 23);
+            dtpStart.Size = new Size(134, 23);
             dtpStart.TabIndex = 0;
             // 
             // dtpEnd
             // 
-            dtpEnd.Location = new Point(151, 170);
+            dtpEnd.Location = new Point(238, 115);
             dtpEnd.Name = "dtpEnd";
-            dtpEnd.Size = new Size(79, 23);
+            dtpEnd.Size = new Size(128, 23);
             dtpEnd.TabIndex = 1;
             // 
             // cmbStatus
             // 
             cmbStatus.FormattingEnabled = true;
-            cmbStatus.Location = new Point(253, 170);
+            cmbStatus.Location = new Point(390, 115);
             cmbStatus.Name = "cmbStatus";
-            cmbStatus.Size = new Size(97, 23);
+            cmbStatus.Size = new Size(114, 23);
             cmbStatus.TabIndex = 2;
             cmbStatus.Text = "狀態篩選\n";
             cmbStatus.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
@@ -73,17 +73,17 @@
             // cmbVendor
             // 
             cmbVendor.FormattingEnabled = true;
-            cmbVendor.Location = new Point(367, 168);
+            cmbVendor.Location = new Point(541, 115);
             cmbVendor.Name = "cmbVendor";
-            cmbVendor.Size = new Size(98, 23);
+            cmbVendor.Size = new Size(116, 23);
             cmbVendor.TabIndex = 6;
             cmbVendor.Text = "廠商名稱";
             // 
             // btnSearch
             // 
-            btnSearch.Location = new Point(498, 172);
+            btnSearch.Location = new Point(1147, 114);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(75, 23);
+            btnSearch.Size = new Size(91, 23);
             btnSearch.TabIndex = 7;
             btnSearch.Text = "搜尋";
             btnSearch.UseVisualStyleBackColor = true;
@@ -91,9 +91,9 @@
             // 
             // btnAddOrder
             // 
-            btnAddOrder.Location = new Point(1133, 232);
+            btnAddOrder.Location = new Point(1259, 114);
             btnAddOrder.Name = "btnAddOrder";
-            btnAddOrder.Size = new Size(93, 34);
+            btnAddOrder.Size = new Size(80, 23);
             btnAddOrder.TabIndex = 9;
             btnAddOrder.Text = "➕ 新增訂單";
             btnAddOrder.UseVisualStyleBackColor = true;
@@ -102,9 +102,9 @@
             // 
             dgvOrders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvOrders.Columns.AddRange(new DataGridViewColumn[] { LastUpdated, Status, IntervalNumber, Vendor, Quantity, TotalAmount, CustomerInfo, Action });
-            dgvOrders.Location = new Point(26, 297);
+            dgvOrders.Location = new Point(81, 163);
             dgvOrders.Name = "dgvOrders";
-            dgvOrders.Size = new Size(1584, 864);
+            dgvOrders.Size = new Size(1565, 708);
             dgvOrders.TabIndex = 10;
             dgvOrders.CellContentClick += dgvOrders_CellContentClick;
             // 
@@ -162,6 +162,7 @@
             Controls.Add(dtpStart);
             Name = "OrderPage";
             Text = "Form1";
+            Load += OrderPage_Load;
             ((System.ComponentModel.ISupportInitialize)dgvOrders).EndInit();
             ResumeLayout(false);
         }

@@ -1,9 +1,9 @@
 public class OrderViewModel
 {
+    // 訂單資料
     public int OrderId { get; set; }
     public string VendorName { get; set; } = string.Empty;
     public string BatchNumber { get; set; } = string.Empty;
-
     public string Status { get; set; } = string.Empty;
     public DateTime LastUpdated { get; set; }
 
@@ -16,4 +16,5 @@ public class OrderViewModel
     // 訂單明細
     public int Quantity { get; set; }
     public decimal TotalAmount { get; set; }
+    public string IntervalNumber { get; set; } = string.Empty;
 }

@@ -1,3 +1,12 @@
+using System;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Newtonsoft.Json;
+using System.Configuration;
+using Newtonsoft.Json.Linq;
+
 namespace Fronted
 {
     public partial class OrderPage : Form
@@ -7,15 +16,20 @@ namespace Fronted
             InitializeComponent();
         }
 
+
+
         private async void LoadOrders()
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    var apiUrl = "https://yourapi.com/api/orders"; // 替換為你後端的 API URL
+                    var apiUrl = "https://localhost:5279/orders";
                     var response = await client.GetStringAsync(apiUrl);
                     var orders = JsonConvert.DeserializeObject<List<OrderViewModel>>(response);
+                    
+                    cmbStatus.DataSource = orders;
+                    cmbVendor.DataSource = orders;
 
                     dgvOrders.Rows.Clear();
 
@@ -25,10 +39,10 @@ namespace Fronted
                             order.LastUpdated.ToString("yyyy/MM/dd"),
                             order.Status,
                             order.IntervalNumber,
-                            order.Vendor,
+                            order.VendorName,
                             order.Quantity,
                             order.TotalAmount,
-                            $"{order.CustomerName} / {order.Phone} / {order.Address} / {order.PickupStore}",
+                            $"{order.CustomerName} / {order.CustomerPhone} / {order.CustomerAddress} / {order.PickupStore}",
                             "編輯 / 刪除"
                         );
                     }
@@ -41,7 +55,6 @@ namespace Fronted
         }
 
 
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -52,21 +65,48 @@ namespace Fronted
 
         }
 
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            var start = dtpStart.Value;
-            var end = dtpEnd.Value;
+            var start = dtpStart.Value.Date;
+            var end = dtpEnd.Value.Date.AddDays(1).AddTicks(-1);
+
             var status = cmbStatus.SelectedItem?.ToString();
             var vendor = cmbVendor.SelectedItem?.ToString();
 
-            var filtered = GetOrders()
+
+            var filtered = LoadOrders()
                 .Where(o => o.LastUpdated >= start && o.LastUpdated <= end)
                 .Where(o => string.IsNullOrEmpty(status) || o.Status == status)
-                .Where(o => string.IsNullOrEmpty(vendor) || o.Vendor == vendor)
+                .Where(o => string.IsNullOrEmpty(vendor) || o.Vendor?.ToString() == vendor)
                 .ToList();
 
-            // 重新綁定到表格
-            BindToGrid(filtered);
+            UpdatedgvOrders(filtered);
+        }
+
+
+        private void UpdatedgvOrders(List<OrderViewModel> OrderViewModels)
+        {
+            foreach (var order in OrderViewModels)
+            {
+                dgvOrders.Rows.Add(
+                    order.LastUpdated.ToString("yyyy/MM/dd"),
+                    order.Status,
+                    order.IntervalNumber,
+                    order.VendorName,
+                    order.Quantity,
+                    order.TotalAmount,
+                    $"{order.CustomerName} / {order.CustomerPhone} / {order.CustomerAddress} / {order.PickupStore}",
+                    "編輯 / 刪除"
+                );
+            }
+        }
+       
+
+        private void OrderPage_Load(object sender, EventArgs e)
+        {
+
+
         }
     }
 }
